@@ -64,12 +64,12 @@ class GameFragment : Fragment() {
 
         }
 
-        viewModel.score.observe(viewLifecycleOwner, Observer {
-            binding.scoreText.text = viewModel.score.value.toString()
+        viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
+            binding.scoreText.text = newScore.toString()
         })
 
-        viewModel.word.observe(viewLifecycleOwner, Observer {
-            binding.wordText.text = viewModel.word.value
+        viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
+            binding.wordText.text = newWord
         })
 
         return binding.root
