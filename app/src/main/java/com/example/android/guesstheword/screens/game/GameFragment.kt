@@ -17,14 +17,13 @@
 package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
-import android.util.Log
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
@@ -42,7 +41,7 @@ class GameFragment : Fragment() {
     private lateinit var binding: GameFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
@@ -77,6 +76,10 @@ class GameFragment : Fragment() {
                 gameFinished()
                 viewModel.onGameFinishedComplete()
             }
+        })
+
+        viewModel.currentTime.observe(viewLifecycleOwner, Observer { newTime ->
+            binding.timerText.text = DateUtils.formatElapsedTime(newTime)
         })
 
         return binding.root
